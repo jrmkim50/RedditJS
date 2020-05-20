@@ -2,9 +2,17 @@ const Post = require('../models/post');
 var express = require('express');
 var router = express.Router();
 
-router.get("/", (req, res, next) => {
-    res.render("posts/home")
+router.get('/', function(req, res, next) {
+    Post.find({})
+    .then(posts => {
+        res.render("posts/index", { posts });
+    })
+    .catch(err => {
+        console.log(err.message);
+    });
 })
+
+
 
 router.get('/new', function(req, res, next) {
     res.render('posts/posts-new');
